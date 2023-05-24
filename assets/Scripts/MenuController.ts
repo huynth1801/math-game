@@ -5,7 +5,7 @@ const { ccclass, property } = _decorator;
 export class MenuController extends Component {
 
     private onPlayClick() : void {
-        director.loadScene("Main")
+        director.loadScene("Game")
     }
 }
 
