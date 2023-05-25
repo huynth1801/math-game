@@ -1,4 +1,4 @@
-import { _decorator, AudioSource, Component, Label, Node, ProgressBar, Sprite } from 'cc';
+import { _decorator, AudioSource, Component, Label, Node, Sprite } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('GameView')
@@ -12,6 +12,18 @@ export class GameView extends Component {
         type: Node
     })
     private unMuteBtn: Node;
+
+    @property({
+        type: Node
+    })
+    private BgPositon: Node;
+    public get bgPositon(): Node {
+        return this.BgPositon;
+    }
+    public set bgPositon(value: Node) {
+        this.BgPositon = value;
+    }
+
 
     @property({
         type: Sprite
@@ -99,7 +111,29 @@ export class GameView extends Component {
     public set wrongAudio(value: AudioSource) {
         this.WrongAudio = value;
     }
-    
+
+    @property({
+        type: Node
+    })
+    private CorrectIcon: Node;
+    public get correctIcon(): Node {
+        return this.CorrectIcon;
+    }
+    public set correctIcon(value: Node) {
+        this.CorrectIcon = value;
+    }
+
+    @property({
+        type: Node
+    })
+    private WrongIcon: Node;
+    public get wrongIcon(): Node {
+        return this.WrongIcon;
+    }
+    public set wrongIcon(value: Node) {
+        this.WrongIcon = value;
+    }
+
     private onMuteClick(): void {
         this.rightAudio.volume = 0;
         this.wrongAudio.volume = 0;

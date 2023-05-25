@@ -1,4 +1,4 @@
-import { _decorator, Color, Component, director, math, Node, random, sys, ProgressBar, Game } from 'cc';
+import { _decorator, Color, Component, director, math, Node, random, sys, ProgressBar, Vec3, tween, easing } from 'cc';
 const { ccclass, property } = _decorator;
 import { GameView } from './GameView';
 import { Constants } from './Constants';
@@ -71,6 +71,8 @@ export class GameController extends Component {
         } else {
             this.timeProcess.progress = 0;
             this.gameView.wrongAudio.play();
+            this.gameView.correctIcon.active = false;
+            this.gameView.wrongIcon.active = true;
             this.showResults();
         }
     }
@@ -83,6 +85,9 @@ export class GameController extends Component {
             this.gameView.rightAudio.play();
         } else {
             this.timeProcess.progress = 1;
+            this.gameView.wrongIcon.active = false;
+            this.gameView.correctIcon.active = true;
+            console.log(this.gameView.correctIcon.active);
             this.gameView.wrongAudio.play();
             this.showResults();
         }
@@ -113,6 +118,9 @@ export class GameController extends Component {
     }
 
     private onSettingClick(): void {
+        // let backgroundX = this.gameView.bgPositon.;
+        // let backgroundY = this.gameView.bgPositon.position.y;
+       
         director.loadScene('Menu');
     }
 }
