@@ -1,14 +1,15 @@
-import { _decorator, Component, director, Node } from 'cc';
+import { _decorator, Component, director, Node, tween, Vec3, find} from 'cc';
 const { ccclass, property } = _decorator;
-import { GameView } from './GameView';
 
 @ccclass('MenuController')
 export class MenuController extends Component {
-    private gameView: GameView;
+
+    protected onLoad(): void {
+      
+    }
 
     private onPlayClick() : void {
-        
-        director.loadScene("Game")
+        director.loadScene('Game');
     }
-}
 
+}

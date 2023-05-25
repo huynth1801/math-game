@@ -14,18 +14,6 @@ export class GameView extends Component {
     private unMuteBtn: Node;
 
     @property({
-        type: Node
-    })
-    private BgPositon: Node;
-    public get bgPositon(): Node {
-        return this.BgPositon;
-    }
-    public set bgPositon(value: Node) {
-        this.BgPositon = value;
-    }
-
-
-    @property({
         type: Sprite
     })
     private BgSprite: Sprite;
@@ -133,6 +121,18 @@ export class GameView extends Component {
     public set wrongIcon(value: Node) {
         this.WrongIcon = value;
     }
+
+    @property({
+        type: Node
+    })
+    private AnswerBtn: Node;
+    public get answerBtn(): Node {
+        return this.AnswerBtn;
+    }
+    public set answerBtn(value: Node) {
+        this.AnswerBtn = value;
+    }
+
 
     private onMuteClick(): void {
         this.rightAudio.volume = 0;

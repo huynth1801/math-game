@@ -71,8 +71,6 @@ export class GameController extends Component {
         } else {
             this.timeProcess.progress = 0;
             this.gameView.wrongAudio.play();
-            this.gameView.correctIcon.active = false;
-            this.gameView.wrongIcon.active = true;
             this.showResults();
         }
     }
@@ -85,8 +83,6 @@ export class GameController extends Component {
             this.gameView.rightAudio.play();
         } else {
             this.timeProcess.progress = 1;
-            this.gameView.wrongIcon.active = false;
-            this.gameView.correctIcon.active = true;
             console.log(this.gameView.correctIcon.active);
             this.gameView.wrongAudio.play();
             this.showResults();
@@ -99,6 +95,14 @@ export class GameController extends Component {
     }
 
     private showResults(): void {
+        if (this.logicGame) {
+            this.gameView.wrongIcon.active = false;
+            this.gameView.correctIcon.active = true;
+        } else {
+            this.gameView.wrongIcon.active = true;
+            this.gameView.correctIcon.active = false;
+        }
+        this.gameView.answerBtn.active = false
         this.timeProcess.node.active = false;
         this.gameView.scoreBoard.active = true;
         this.localScore = parseInt(sys.localStorage.getItem(Constants.highestScoreKey));
@@ -109,6 +113,7 @@ export class GameController extends Component {
     }
 
     private onRestartClick(): void {
+        this.gameView.answerBtn.active = true;
         this.timeProcess.progress = 1;
         this.timeProcess.node.active = true;
         this.gameView.scoreBoard.active = false;
@@ -118,9 +123,6 @@ export class GameController extends Component {
     }
 
     private onSettingClick(): void {
-        // let backgroundX = this.gameView.bgPositon.;
-        // let backgroundY = this.gameView.bgPositon.position.y;
-       
         director.loadScene('Menu');
     }
 }
