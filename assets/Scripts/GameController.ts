@@ -1,7 +1,8 @@
-import { _decorator, Color, Component, director, math, Node, random, sys, ProgressBar, Vec3, tween, easing } from 'cc';
+import { _decorator, Color, Component, director, math, Node, random, sys, ProgressBar, Vec3, tween, easing, find } from 'cc';
 const { ccclass, property } = _decorator;
 import { GameView } from './GameView';
 import { Constants } from './Constants';
+import { Store } from './Store';
 
 @ccclass('GameController')
 export class GameController extends Component {
@@ -33,26 +34,32 @@ export class GameController extends Component {
     }
 
     protected onLoad(): void {
+        this.passSoundVolume();
         tween(this.gameView.sceneTr)
           .to(0, {position: new Vec3(154.812,0,0) },{easing: 'cubicInOut'})
           .call(()=>console.log('hello'))
-          .to(0.5, {position: new Vec3(154.812,512,0) },{easing: 'cubicInOut'})
+          .to(0.7, {position: new Vec3(154.812,512,0) },{easing: 'cubicInOut'})
           .start();
 
         if (!sys.localStorage.getItem(Constants.highestScoreKey)) {
             sys.localStorage.setItem(Constants.highestScoreKey, this.currScore.toString());
         }
+    }
+
+    private passSoundVolume(): void {
+        let store = find('StoreVolume').getComponent(Store);
+        this.gameView.rightAudio.volume = store.storeVolume.valueOf();
+        this.gameView.wrongAudio.volume = store.storeVolume.valueOf();
+        this.gameView.startUpAudio.volume = store.storeVolume.valueOf();
+        this.gameView.startUpAudio.play();
+        this.gameView.muteBtn.active = store.storeVolume.valueOf() === 1;
+        this.gameView.unMuteBtn.active = !this.gameView.muteBtn.active;
+    }
+
+    protected start(): void {
         this.generateEquation();
         this.gameView.bgSprite.color.set(math.randomRangeInt(10,255),math.randomRangeInt(1,255),math.randomRangeInt(1,255),math.randomRangeInt(100,255));
     }
-
-    // protected start(): void {
-    //     tween(this.gameView.sceneTr)
-    //       .to(0, {position: new Vec3(154.812,0,0) },{easing: 'cubicInOut'})
-    //       .call(()=>console.log('hello'))
-    //       .to(0.5, {position: new Vec3(154.812,512,0) },{easing: 'cubicInOut'})
-    //       .start();
-    // }
 
     protected update(): void {
         this.playingTime();
@@ -136,6 +143,24 @@ export class GameController extends Component {
 
     private onSettingClick(): void {
         director.loadScene('Menu');
+    }
+
+    private onMuteClick(): void {
+        this.gameView.rightAudio.volume = 0;
+        this.gameView.wrongAudio.volume = 0;
+        let store = find('StoreVolume').getComponent(Store);
+        store.storeVolume = 0;
+        this.gameView.muteBtn.active = false;
+        this.gameView.unMuteBtn.active = true;
+    }
+
+    private onUnMuteClick(): void {
+        this.gameView.rightAudio.volume = 1;
+        this.gameView.wrongAudio.volume = 1;
+        let store = find('StoreVolume').getComponent(Store);
+        store.storeVolume = 1;
+        this.gameView.muteBtn.active = true;
+        this.gameView.unMuteBtn.active = false;
     }
 }
 

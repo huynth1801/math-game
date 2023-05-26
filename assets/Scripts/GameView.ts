@@ -6,12 +6,24 @@ export class GameView extends Component {
     @property({
         type: Node
     })
-    private muteBtn: Node;
+    private MuteBtn: Node;
+    public get muteBtn(): Node {
+        return this.MuteBtn;
+    }
+    public set muteBtn(value: Node) {
+        this.MuteBtn = value;
+    }
 
     @property({
         type: Node
     })
-    private unMuteBtn: Node;
+    private UnMuteBtn: Node;
+    public get unMuteBtn(): Node {
+        return this.UnMuteBtn;
+    }
+    public set unMuteBtn(value: Node) {
+        this.UnMuteBtn = value;
+    }
 
     @property({
         type: Sprite
@@ -90,6 +102,14 @@ export class GameView extends Component {
         this.RightAudio = value;
     }
     
+    @property({ type: AudioSource })
+    private StartUpAudio: AudioSource;
+    public get startUpAudio(): AudioSource {
+        return this.StartUpAudio;
+    }
+    public set startUpAudio(value: AudioSource) {
+        this.StartUpAudio = value;
+    }
 
     @property({ type: AudioSource })
     private WrongAudio: AudioSource;
@@ -137,19 +157,5 @@ export class GameView extends Component {
         type:Node
     })
     public sceneTr: Node;
-
-    private onMuteClick(): void {
-        this.rightAudio.volume = 0;
-        this.wrongAudio.volume = 0;
-        this.muteBtn.active = false;
-        this.unMuteBtn.active = true;
-    }
-
-    private onUnMuteClick(): void {
-        this.rightAudio.volume = 1;
-        this.wrongAudio.volume = 1;
-        this.muteBtn.active = true;
-        this.unMuteBtn.active = false;
-    }
 }
 
