@@ -133,6 +133,10 @@ export class GameView extends Component {
         this.AnswerBtn = value;
     }
 
+    @property({
+        type:Node
+    })
+    public sceneTr: Node;
 
     private onMuteClick(): void {
         this.rightAudio.volume = 0;

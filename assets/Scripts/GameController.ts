@@ -33,6 +33,12 @@ export class GameController extends Component {
     }
 
     protected onLoad(): void {
+        tween(this.gameView.sceneTr)
+          .to(0, {position: new Vec3(154.812,0,0) },{easing: 'cubicInOut'})
+          .call(()=>console.log('hello'))
+          .to(0.5, {position: new Vec3(154.812,512,0) },{easing: 'cubicInOut'})
+          .start();
+
         if (!sys.localStorage.getItem(Constants.highestScoreKey)) {
             sys.localStorage.setItem(Constants.highestScoreKey, this.currScore.toString());
         }
@@ -40,8 +46,15 @@ export class GameController extends Component {
         this.gameView.bgSprite.color.set(math.randomRangeInt(10,255),math.randomRangeInt(1,255),math.randomRangeInt(1,255),math.randomRangeInt(100,255));
     }
 
+    // protected start(): void {
+    //     tween(this.gameView.sceneTr)
+    //       .to(0, {position: new Vec3(154.812,0,0) },{easing: 'cubicInOut'})
+    //       .call(()=>console.log('hello'))
+    //       .to(0.5, {position: new Vec3(154.812,512,0) },{easing: 'cubicInOut'})
+    //       .start();
+    // }
+
     protected update(): void {
-        this.playingTime();
         this.playingTime();
         // console.log(this.progress);
         if (this.progress < 0.01) {
@@ -83,7 +96,6 @@ export class GameController extends Component {
             this.gameView.rightAudio.play();
         } else {
             this.timeProcess.progress = 1;
-            console.log(this.gameView.correctIcon.active);
             this.gameView.wrongAudio.play();
             this.showResults();
         }
