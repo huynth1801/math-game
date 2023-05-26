@@ -27,7 +27,6 @@ export class MenuController extends Component {
         {
             this.store = find('StoreVolume').getComponent(Store);
         }
-
         let paramsMain = this.store.storeVolume.valueOf();
         this.muteBtn.active = paramsMain === 1;
         this.unMuteBtn.active = paramsMain !== 1;

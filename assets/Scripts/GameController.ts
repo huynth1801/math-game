@@ -74,10 +74,10 @@ export class GameController extends Component {
         let a = math.randomRangeInt(0,100);
         let b = math.randomRangeInt(0,100);
         let result = a + b;
-        let resultRandom = this.randomizeBetweenTwoNumbers(result, math.randomRangeInt(0,100));
+        let resultRandom = this.randomizeBetweenTwoNumbers(result, math.randomRangeInt(0,200));
         this.gameView.Equation.string = a.toString() + '+' + b.toString() + '=' + resultRandom.toString();
         this.logicGame = result === resultRandom ? true : false;
-        if (this.currScore > 10) {
+        if (this.currScore > 5) {
             this.gameSpeed += Math.pow(Constants.gameStep,2);
             console.log(this.gameSpeed);
         }
