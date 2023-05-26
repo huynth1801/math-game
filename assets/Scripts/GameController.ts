@@ -21,11 +21,12 @@ export class GameController extends Component {
     private currScore: number = 0;
     private localScore: number = 0;
     private maxScore: number = 0;
+    private gameSpeed: number = 0.002;
 
     private playingTime(): void {
         this.progress = this.timeProcess.progress;
         if (this.progress > 0) {
-            this.progress -= Constants.gameSpeed;
+            this.progress -= this.gameSpeed;
         }
         else {
             this.progress = 1;
@@ -76,6 +77,10 @@ export class GameController extends Component {
         let resultRandom = this.randomizeBetweenTwoNumbers(result, math.randomRangeInt(0,100));
         this.gameView.Equation.string = a.toString() + '+' + b.toString() + '=' + resultRandom.toString();
         this.logicGame = result === resultRandom ? true : false;
+        if (this.currScore > 10) {
+            this.gameSpeed += 0.001;
+            console.log(this.gameSpeed);
+        }
     }
 
     private randomizeBetweenTwoNumbers(a, b): number {
