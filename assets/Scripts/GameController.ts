@@ -78,7 +78,7 @@ export class GameController extends Component {
         this.gameView.Equation.string = a.toString() + '+' + b.toString() + '=' + resultRandom.toString();
         this.logicGame = result === resultRandom ? true : false;
         if (this.currScore > 10) {
-            this.gameSpeed += 0.001;
+            this.gameSpeed += Math.pow(Constants.gameStep,2);
             console.log(this.gameSpeed);
         }
     }
